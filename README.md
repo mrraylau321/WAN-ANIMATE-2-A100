@@ -147,6 +147,12 @@ cd infer && PYTHONPATH=.. python wan_animate_2_demo.py --config ./wan_animate_2_
   --cfg-override model_path=../ckpts/wan_animate_2/wan_animate_2_bf16_distillation.safetensors
 ```
 
+## Experimental 16GB-per-GPU preset
+
+`scripts/run_v100_16gb.sh` adds a **non-validated** multi-GPU profile (256×448, `CLIP_LEN=25`, reduced SDPA query chunk and MATH budget). Launch as `MODE=distill scripts/run_v100_16gb.sh` or `MODE=base scripts/run_v100_16gb.sh`. Override `GPUS` if needed; the head count must divide 40. This does **not** establish support for one 16GB GPU or guarantee an OOM-free run. The full 16.39B-parameter model remains distributed through FSDP and needs multi-GPU measurements. The shorter clips can still exhibit conditioning artifacts at chunk seams; this profile does not fix them.
+
+**Chunk-seam limitation:** Multi-chunk continuation currently VAE-encodes previous-frame context padded with black frames (`pipelines/wan_animate_2_pipeline.py`). The reported saturation glitches at frame 24 and 48–53 are not yet addressed by this repository. A seamless single-chunk 61-frame run requires `CLIP_LEN=65` and must be tested with available VRAM; the 32GB V100 288×512 attempt was reported OOM. The earlier README's CPU-only status is the state of this checked-out revision, not a claim about separate runtime experiments.
+
 ## Expected limits (estimates, not measurements; see NOTES §7)
 
 The figures below are for **one 81-frame clip** of a 64-frame driving video (65 frames after
