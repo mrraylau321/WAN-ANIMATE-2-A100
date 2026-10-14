@@ -41,8 +41,7 @@ case "${RES:-480p}" in
   480p) W=480; H=832 ;;
   540p) W=544; H=960 ;;
   720p) W=720; H=1280 ;;
-  256x448) W=256; H=448 ;;
-  *) echo "RES must be 480p|540p|720p|256x448" >&2; exit 2 ;;
+  *) echo "RES must be 480p|540p|720p" >&2; exit 2 ;;
 esac
 
 WAN=$CKPT_DIR/videomodel/Wan-AI
