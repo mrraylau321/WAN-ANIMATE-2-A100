@@ -1,0 +1,65 @@
+# Modified for the V100 (sm70) port, 2026-10 - see README.md / NOTES_V100.md.
+from functools import partial
+import torch
+from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
+from torch.distributed.fsdp import MixedPrecision, ShardingStrategy
+from torch.distributed.fsdp.wrap import lambda_auto_wrap_policy, transformer_auto_wrap_policy
+
+def shard_model(
+    model,
+    device_id,
+    param_dtype=torch.bfloat16,
+    reduce_dtype=torch.float32,
+    buffer_dtype=torch.float32,
+    process_group=None,
+    sharding_strategy=ShardingStrategy.FULL_SHARD,
+    sync_module_states=True,
+    use_lora=False,
+    extra_wrap=()
+):
+    # extra_wrap (V100 port): additional submodules that get their own FSDP unit. Non-root units
+    # are resharded after forward; the root's unsharded params are kept by FSDP1 (for backward),
+    # so wrapping the T5 token embedding + final norm frees them after encoding.
+    model = FSDP(
+        module=model,
+        process_group=process_group,
+        sharding_strategy=sharding_strategy,
+        auto_wrap_policy=partial(
+            lambda_auto_wrap_policy,
+            lambda_fn=lambda m: m in model.blocks or any(m is e for e in extra_wrap)),
+        mixed_precision=MixedPrecision(
+            param_dtype=param_dtype,
+            reduce_dtype=reduce_dtype,
+            buffer_dtype=buffer_dtype),
+        device_id=device_id,
+        sync_module_states=sync_module_states,
+        use_orig_params=True if use_lora else False)
+    return model
+
+
+def shard_transformer(
+    model,
+    transformer_layer_cls,
+    device_id,
+    param_dtype=torch.bfloat16,
+    reduce_dtype=torch.float32,
+    buffer_dtype=torch.float32,
+    process_group=None,
+    sharding_strategy=ShardingStrategy.FULL_SHARD,
+    sync_module_states=True,
+    use_lora=False
+):
+    model = FSDP(
+        module=model,
+        process_group=process_group,
+        sharding_strategy=sharding_strategy,
+        auto_wrap_policy=partial(
+            transformer_auto_wrap_policy, transformer_layer_cls=transformer_layer_cls),
+        mixed_precision=MixedPrecision(
+            param_dtype=param_dtype,
+            reduce_dtype=reduce_dtype,
+            buffer_dtype=buffer_dtype),
+        device_id=device_id,
+        sync_module_states=sync_module_states,
+        use_orig_params=True if use_lora else False)
+    return model

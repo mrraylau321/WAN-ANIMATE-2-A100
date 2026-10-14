@@ -1,0 +1,8403 @@
+{
+"note": "safetensors JSON headers (tensor names/dtypes/shapes only, no weights) of the official checkpoints, fetched with HTTP Range requests on 2026-10-13. Both files have identical headers apart from data offsets.",
+"repo": "Wan-AI/Wan2.2-Animate-2-14B",
+"revision": "6e8f1973bf0abc2aafd517992e8b6d88c3c46e69",
+"files": {
+"wan_animate_2/wan_animate_2_bf16.safetensors": 32789901704,
+"wan_animate_2/wan_animate_2_bf16_distillation.safetensors": 32789901704
+},
+"tensors": {
+"blocks.0.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.0.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.0.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.0.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.0.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.0.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.0.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.0.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.0.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.0.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.0.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.0.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.0.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.0.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.0.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.1.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.1.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.1.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.1.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.1.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.1.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.1.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.1.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.1.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.1.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.1.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.1.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.1.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.1.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.1.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.10.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.10.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.10.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.10.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.10.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.10.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.10.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.10.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.10.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.10.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.10.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.10.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.10.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.10.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.10.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.11.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.11.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.11.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.11.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.11.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.11.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.11.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.11.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.11.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.11.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.11.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.11.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.11.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.11.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.11.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.12.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.12.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.12.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.12.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.12.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.12.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.12.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.12.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.12.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.12.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.12.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.12.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.12.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.12.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.12.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.13.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.13.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.13.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.13.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.13.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.13.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.13.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.13.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.13.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.13.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.13.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.13.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.13.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.13.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.13.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.14.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.14.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.14.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.14.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.14.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.14.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.14.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.14.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.14.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.14.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.14.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.14.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.14.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.14.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.14.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.15.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.15.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.15.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.15.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.15.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.15.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.15.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.15.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.15.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.15.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.15.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.15.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.15.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.15.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.15.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.16.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.16.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.16.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.16.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.16.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.16.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.16.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.16.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.16.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.16.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.16.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.16.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.16.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.16.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.16.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.17.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.17.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.17.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.17.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.17.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.17.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.17.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.17.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.17.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.17.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.17.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.17.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.17.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.17.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.17.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.18.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.18.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.18.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.18.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.18.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.18.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.18.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.18.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.18.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.18.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.18.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.18.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.18.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.18.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.18.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.19.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.19.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.19.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.19.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.19.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.19.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.19.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.19.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.19.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.19.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.19.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.19.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.19.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.19.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.19.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.2.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.2.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.2.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.2.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.2.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.2.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.2.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.2.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.2.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.2.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.2.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.2.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.2.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.2.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.2.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.20.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.20.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.20.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.20.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.20.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.20.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.20.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.20.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.20.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.20.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.20.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.20.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.20.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.20.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.20.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.21.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.21.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.21.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.21.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.21.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.21.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.21.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.21.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.21.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.21.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.21.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.21.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.21.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.21.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.21.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.22.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.22.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.22.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.22.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.22.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.22.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.22.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.22.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.22.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.22.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.22.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.22.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.22.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.22.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.22.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.23.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.23.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.23.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.23.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.23.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.23.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.23.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.23.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.23.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.23.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.23.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.23.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.23.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.23.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.23.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.24.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.24.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.24.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.24.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.24.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.24.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.24.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.24.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.24.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.24.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.24.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.24.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.24.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.24.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.24.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.25.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.25.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.25.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.25.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.25.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.25.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.25.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.25.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.25.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.25.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.25.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.25.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.25.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.25.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.25.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.26.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.26.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.26.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.26.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.26.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.26.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.26.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.26.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.26.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.26.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.26.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.26.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.26.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.26.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.26.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.27.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.27.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.27.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.27.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.27.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.27.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.27.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.27.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.27.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.27.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.27.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.27.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.27.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.27.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.27.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.28.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.28.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.28.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.28.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.28.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.28.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.28.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.28.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.28.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.28.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.28.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.28.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.28.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.28.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.28.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.29.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.29.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.29.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.29.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.29.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.29.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.29.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.29.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.29.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.29.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.29.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.29.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.29.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.29.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.29.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.3.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.3.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.3.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.3.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.3.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.3.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.3.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.3.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.3.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.3.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.3.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.3.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.3.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.3.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.3.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.30.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.30.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.30.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.30.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.30.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.30.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.30.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.30.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.30.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.30.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.30.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.30.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.30.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.30.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.30.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.31.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.31.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.31.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.31.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.31.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.31.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.31.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.31.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.31.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.31.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.31.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.31.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.31.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.31.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.31.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.32.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.32.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.32.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.32.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.32.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.32.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.32.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.32.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.32.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.32.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.32.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.32.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.32.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.32.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.32.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.33.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.33.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.33.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.33.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.33.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.33.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.33.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.33.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.33.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.33.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.33.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.33.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.33.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.33.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.33.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.34.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.34.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.34.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.34.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.34.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.34.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.34.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.34.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.34.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.34.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.34.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.34.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.34.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.34.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.34.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.35.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.35.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.35.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.35.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.35.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.35.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.35.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.35.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.35.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.35.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.35.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.35.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.35.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.35.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.35.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.36.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.36.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.36.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.36.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.36.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.36.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.36.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.36.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.36.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.36.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.36.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.36.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.36.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.36.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.36.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.37.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.37.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.37.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.37.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.37.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.37.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.37.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.37.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.37.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.37.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.37.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.37.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.37.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.37.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.37.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.38.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.38.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.38.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.38.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.38.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.38.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.38.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.38.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.38.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.38.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.38.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.38.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.38.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.38.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.38.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.39.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.39.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.39.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.39.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.39.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.39.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.39.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.39.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.39.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.39.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.39.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.39.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.39.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.39.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.39.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.4.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.4.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.4.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.4.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.4.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.4.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.4.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.4.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.4.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.4.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.4.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.4.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.4.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.4.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.4.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.5.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.5.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.5.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.5.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.5.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.5.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.5.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.5.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.5.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.5.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.5.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.5.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.5.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.5.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.5.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.6.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.6.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.6.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.6.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.6.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.6.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.6.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.6.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.6.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.6.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.6.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.6.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.6.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.6.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.6.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.7.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.7.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.7.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.7.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.7.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.7.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.7.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.7.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.7.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.7.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.7.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.7.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.7.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.7.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.7.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.8.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.8.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.8.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.8.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.8.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.8.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.8.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.8.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.8.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.8.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.8.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.8.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.8.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.8.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.8.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.9.block.cross_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.cross_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.9.block.cross_attn.k_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.cross_attn.k_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.9.block.cross_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.cross_attn.norm_k_img.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.cross_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.cross_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.cross_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.9.block.cross_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.cross_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.9.block.cross_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.cross_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.9.block.cross_attn.v_img.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.cross_attn.v_img.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.9.block.ffn.0.bias": [
+"BF16",
+[
+13824
+]
+],
+"blocks.9.block.ffn.0.weight": [
+"BF16",
+[
+13824,
+5120
+]
+],
+"blocks.9.block.ffn.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.ffn.2.weight": [
+"BF16",
+[
+5120,
+13824
+]
+],
+"blocks.9.block.modulation": [
+"BF16",
+[
+1,
+6,
+5120
+]
+],
+"blocks.9.block.norm3.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.norm3.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.self_attn.k.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.self_attn.k.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.9.block.self_attn.norm_k.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.self_attn.norm_q.weight": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.self_attn.o.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.self_attn.o.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.9.block.self_attn.q.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.self_attn.q.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"blocks.9.block.self_attn.v.bias": [
+"BF16",
+[
+5120
+]
+],
+"blocks.9.block.self_attn.v.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"head.head.bias": [
+"BF16",
+[
+64
+]
+],
+"head.head.weight": [
+"BF16",
+[
+64,
+5120
+]
+],
+"head.modulation": [
+"BF16",
+[
+1,
+2,
+5120
+]
+],
+"img_emb.proj.0.bias": [
+"BF16",
+[
+1280
+]
+],
+"img_emb.proj.0.weight": [
+"BF16",
+[
+1280
+]
+],
+"img_emb.proj.1.bias": [
+"BF16",
+[
+1280
+]
+],
+"img_emb.proj.1.weight": [
+"BF16",
+[
+1280,
+1280
+]
+],
+"img_emb.proj.3.bias": [
+"BF16",
+[
+5120
+]
+],
+"img_emb.proj.3.weight": [
+"BF16",
+[
+5120,
+1280
+]
+],
+"img_emb.proj.4.bias": [
+"BF16",
+[
+5120
+]
+],
+"img_emb.proj.4.weight": [
+"BF16",
+[
+5120
+]
+],
+"patch_embedding.bias": [
+"BF16",
+[
+5120
+]
+],
+"patch_embedding.weight": [
+"BF16",
+[
+5120,
+36,
+1,
+2,
+2
+]
+],
+"text_embedding.0.bias": [
+"BF16",
+[
+5120
+]
+],
+"text_embedding.0.weight": [
+"BF16",
+[
+5120,
+4096
+]
+],
+"text_embedding.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"text_embedding.2.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"time_embedding.0.bias": [
+"BF16",
+[
+5120
+]
+],
+"time_embedding.0.weight": [
+"BF16",
+[
+5120,
+256
+]
+],
+"time_embedding.2.bias": [
+"BF16",
+[
+5120
+]
+],
+"time_embedding.2.weight": [
+"BF16",
+[
+5120,
+5120
+]
+],
+"time_projection.1.bias": [
+"BF16",
+[
+30720
+]
+],
+"time_projection.1.weight": [
+"BF16",
+[
+30720,
+5120
+]
+]
+}
+}
