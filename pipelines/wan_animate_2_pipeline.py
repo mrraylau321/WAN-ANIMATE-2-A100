@@ -43,6 +43,7 @@ from wanxiang.utils.fm_solvers import FlowDPMSolverMultistepScheduler
 from wanxiang.eval_i2v import T5Encoder, CLIP, get_i2v_mask
 from wanxiang.distributed.fsdp import shard_model, shard_transformer
 from wanxiang.models import attention as wan_attention
+from wanxiang.models import wan_animate_2_model as wan_model
 from wanxiang.utils.precision import resolve_precision, parse_dtype
 from wanxiang.utils.fp16_guard import check_fp16_castable, force_fp32, OverflowGuard
 
@@ -145,10 +146,14 @@ def setup_seed(seed):
     torch.backends.cudnn.deterministic = True
 
 
-def vae_encode(vae, videos, prec):
-    """V100 port: run the VAE in prec.vae (fp32 on V100). Upstream path: unchanged call."""
+def vae_encode(vae, videos, prec, release_cache=False):
+    """Encode as before; optionally release per-call causal caches on low-VRAM GPUs."""
     if prec.upstream:
-        return vae.encode(videos)
+        try:
+            return vae.encode(videos)
+        finally:
+            if release_cache:
+                vae.model.clear_cache()
     try:
         with torch.autocast(device_type="cuda", dtype=prec.vae):
             return vae.encode([u.to(prec.vae) for u in videos])
@@ -156,11 +161,14 @@ def vae_encode(vae, videos, prec):
         vae.model.clear_cache()
 
 
-def vae_decode(vae, zs, prec):
-    """Upstream path: VideoVAE.decode (clamped to [-1, 1]). V100 path: same maths but returned
-    UNclamped, so the caller can check for inf/NaN first (clamp would turn inf into +-1)."""
+def vae_decode(vae, zs, prec, release_cache=False):
+    """Decode as before; optional causal-cache release also applies to BF16 A100."""
     if prec.upstream:
-        return vae.decode(zs)
+        try:
+            return vae.decode(zs)
+        finally:
+            if release_cache:
+                vae.model.clear_cache()
     try:
         with torch.autocast(device_type="cuda", dtype=prec.vae):
             return [vae.model.decode(u.to(prec.vae).unsqueeze(0), vae.scale).float().squeeze(0) for u in zs]
@@ -394,7 +402,7 @@ def inference_core(item, gpu, cfg, clip, vae, model, t5, use_t5, context, contex
             latents = noise
 
             ref_pixel_values = rearrange(ref_pixel_values, "t c h w -> 1 c t h w")
-            ref_latents = vae_encode(vae, ref_pixel_values.to(prec.vae), prec)
+            ref_latents = vae_encode(vae, ref_pixel_values.to(prec.vae), prec, release_cache=low_vram)
             ref_latents = torch.stack(ref_latents)
             mask_ref = get_i2v_mask(1, lat_h, lat_w, 1, device=device)
             y_ref = torch.concat([mask_ref, ref_latents[0]]).to(dtype=prec.dit, device=device)
@@ -417,7 +425,7 @@ def inference_core(item, gpu, cfg, clip, vae, model, t5, use_t5, context, contex
                             ],
                             dim=1,
                         ).to(device)
-                    ], prec
+                    ], prec, release_cache=low_vram
                 )[0]
             else:
                 y_reft = vae_encode(vae,
@@ -428,13 +436,14 @@ def inference_core(item, gpu, cfg, clip, vae, model, t5, use_t5, context, contex
                             ],
                             dim=1,
                         ).to(device)
-                    ], prec
+                    ], prec, release_cache=low_vram
                 )[0]
 
             y_reft = torch.concat([msk_reft, y_reft]).to(dtype=prec.dit, device=device)
             y = torch.concat([y_ref, y_reft], dim=1)
 
-            condition_latents = vae_encode(vae, conditioning_pixel_values.to(prec.vae), prec)
+            condition_latents = vae_encode(vae, conditioning_pixel_values.to(prec.vae), prec,
+                                           release_cache=low_vram)
             condition_latents = torch.stack(condition_latents)
             condition_latents = torch.cat([condition_latents], dim=2)
 
@@ -458,7 +467,7 @@ def inference_core(item, gpu, cfg, clip, vae, model, t5, use_t5, context, contex
                         ],
                         dim=1,
                     ).to(device)
-                ], prec
+                ], prec, release_cache=low_vram
             )[0]
 
             condition_msk_y = get_i2v_mask(lat_t, lat_h, lat_w, mask_len, device=device)
@@ -474,7 +483,7 @@ def inference_core(item, gpu, cfg, clip, vae, model, t5, use_t5, context, contex
             }, hints={"VAE latents (reference image)": VAE_HINT, "VAE latents (continuation frames)": VAE_HINT,
                       "VAE latents (driving video)": VAE_HINT, "VAE latents (driving mask)": VAE_HINT,
                       "CLIP visual (reference image)": CLIP_HINT, "CLIP visual (first driving frame)": CLIP_HINT})
-            if not prec.upstream:  # V100 port: pixel tensors are not needed again in this clip
+            if not prec.upstream or low_vram:  # also release BF16 A100 pixels before denoising
                 del batch, ref_pixel_values, conditioning_pixel_values, img, condition_img
 
             if use_t5:
@@ -573,10 +582,10 @@ def inference_core(item, gpu, cfg, clip, vae, model, t5, use_t5, context, contex
             x0 = latents
             # 将latents转换为float32进行解码
             x0 = [x.to(dtype=torch.float32) for x in x0]
-            if not prec.upstream:  # V100 port: free the reference K/V before VAE decode
+            if not prec.upstream or low_vram:  # release K/V before A100 decode as well
                 k_cache.clear(); v_cache.clear()
             torch.cuda.empty_cache()
-            out_frames = torch.stack(vae_decode(vae, [x0[0][:, 1:]], prec))
+            out_frames = torch.stack(vae_decode(vae, [x0[0][:, 1:]], prec, release_cache=low_vram))
             if not prec.upstream:
                 guard.assert_finite("VAE decode", {"VAE decoded frames (before clamp)": out_frames},
                                     hints={"VAE decoded frames (before clamp)": VAE_HINT})
@@ -677,7 +686,10 @@ def build_dit(cfg, device, prec, gpu):
         return MixedPrecisionPolicy(
             param_dtype=dtype,
             reduce_dtype=dtype,
-            output_dtype=prec.dit_output,
+            # A100 BF16 root needs FP32 for time_embedding/time_projection/head.
+            # Casting a FP32 island's FSDP output back to BF16 violates the model's
+            # explicit FP32 assertions and silently changes numerics.
+            output_dtype=torch.float32 if dtype == torch.float32 else prec.dit_output,
             cast_forward_inputs=False
         )
 
@@ -785,6 +797,9 @@ def worker(gpu, cfg, in_q_list, out_q, initialized_events, status_q=None):
         wan_attention.set_attention_backend(
             cfg.test_cfg.get("attn_backend", None) or os.environ.get("WAN_ATTN_BACKEND", "auto"))
         wan_attention.set_compute_dtype(prec.dit)
+        # A100 2-way CP: own K/V memory on both FlashAttention and SDPA
+        # backends, otherwise flash caches retain the all_to_all Q allocation.
+        wan_model.set_own_kv_cache(bool(cfg.test_cfg.get("kv_cache_owned", False)))
         if gpu == 0:
             logger.info(f"GPU capability sm{''.join(map(str, torch.cuda.get_device_capability(gpu)))}; "
                         f"precision: {prec.describe()}; attention backend: "
@@ -828,7 +843,8 @@ def worker(gpu, cfg, in_q_list, out_q, initialized_events, status_q=None):
             # and final norm get their own FSDP units so nothing stays unsharded after encoding
             # (FSDP1 keeps the root unit's unsharded params: 4.2 GB in fp32)
             t5.model = shard_fn(t5.model, sync_module_states=False, param_dtype=prec.t5,
-                                extra_wrap=() if prec.upstream else (t5.model.token_embedding, t5.model.norm))
+                                extra_wrap=() if prec.upstream and not cfg.test_cfg.get("low_vram", False)
+                                else (t5.model.token_embedding, t5.model.norm))
             log_weight_allocation("T5 FSDP1", t5.model, device,
                                   bool(cfg.test_cfg.get("log_gpu_memory", False)))
             gpu_memory_checkpoint("T5 initialization", device,

@@ -9,6 +9,16 @@ from .attention import flash_attention, flex_attention, attention_backend, build
 from wanxiang import ops
 from functools import lru_cache, partial
 
+# Opt-in for A100 2-way context parallelism: cloned reference K/V owns its
+# storage instead of pinning the entire all_to_all [Q|K|V] buffer across chunks.
+# The 80GB A100 profile enables this; generic upstream/V100 behavior stays intact.
+_OWN_KV_CACHE = False
+
+
+def set_own_kv_cache(enabled):
+    global _OWN_KV_CACHE
+    _OWN_KV_CACHE = bool(enabled)
+
 def _score_mod_impl(score, b_idx, h_idx, q_idx, kv_idx, hw: int, log_scale: float):
     condition = (kv_idx >= hw) & (kv_idx < 2 * hw)
     return torch.where(condition, score + log_scale, score)
@@ -156,7 +166,7 @@ class LayerNorm(nn.LayerNorm):
         # input and affine parameters to agree in dtype (CPU and CUDA kernels).
         # Cast only the tiny affine parameters for the norm, without changing
         # checkpoint keys or the module's persistent FP16/BF16 weight storage.
-        if self.weight is not None and self.weight.dtype == torch.float16:
+        if self.weight is not None and self.weight.dtype in (torch.float16, torch.bfloat16):
             return torch.nn.functional.layer_norm(
                 x.float(), self.normalized_shape, self.weight.float(),
                 self.bias.float() if self.bias is not None else None, self.eps,
@@ -372,7 +382,7 @@ class Incontext_AttentionBlock(nn.Module):
         # V100 port (SDPA backend only; the flash path keeps upstream's views): own storage. With
         # context parallel, k_ref/v_ref are chunk() views of the all_to_all [q|k|v] buffer;
         # caching the views would keep q alive too (+50% cache memory).
-        port = attention_backend(k_ref.device) == "sdpa"
+        port = attention_backend(k_ref.device) == "sdpa" or _OWN_KV_CACHE
         k_cache[index] = k_ref.clone() if port else k_ref
         v_cache[index] = v_ref.clone() if port else v_ref
         q_ref_add_rope = rope_apply(q_ref, grid_sizes_ref, freqs_ref, self.refer_stride)

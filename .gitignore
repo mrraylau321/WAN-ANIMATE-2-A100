@@ -1,5 +1,18 @@
+# Python / local environments
 __pycache__/
-*.pyc
-*.pyo
-__pycache__/
-*.pyc
+*.py[cod]
+.pytest_cache/
+.venv/
+.venv-*/
+
+# Model checkpoints and generated inference output (never commit user/company data)
+ckpts/
+outputs/
+*.safetensors
+*.pth
+*.pt
+*.ckpt
+*.log
+
+# Local tooling
+.DS_Store

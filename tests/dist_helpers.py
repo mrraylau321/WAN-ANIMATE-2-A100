@@ -56,10 +56,11 @@ def load_worker(rank, world, port, scenario, ckpt_path, out_dir):
         from wanxiang.models import attention as A
         from wanxiang.utils.precision import resolve_precision
         fp32_modules = ["blocks.1"] if scenario in ("overflow_allowlisted", "shard_bf16_island") else []
-        if scenario == "shard_bf16_fp16_forward":
+        if scenario in ("shard_bf16_fp16_forward", "a100_bf16_forward"):
             fp32_modules = ["time_embedding", "time_projection", "head"]
-        dit_dtype = "fp32" if scenario in ("forward_fp32", "shard_bf16_forward") else "fp16"
-        shard_dtype = "bf16" if scenario.startswith("shard_bf16") else "auto"
+        dit_dtype = "bf16" if scenario == "a100_bf16_forward" else (
+            "fp32" if scenario in ("forward_fp32", "shard_bf16_forward") else "fp16")
+        shard_dtype = "bf16" if scenario.startswith("shard_bf16") or scenario == "a100_bf16_forward" else "auto"
         cfg = tiny_cfg(ckpt_path, world, fp32_modules, dit_dtype, shard_dtype)
         prec = resolve_precision(cfg.test_cfg, torch.device("cpu"))
         A.set_attention_backend("sdpa")
@@ -76,10 +77,12 @@ def load_worker(rank, world, port, scenario, ckpt_path, out_dir):
         full = get_model_state_dict(model, options=StateDictOptions(full_state_dict=True, cpu_offload=True))
         if rank == 0:
             torch.save({k: v.clone() for k, v in full.items()}, os.path.join(out_dir, f"{scenario}_sd.pt"))
-        if scenario in ("forward_fp32", "shard_bf16_forward", "shard_bf16_fp16_forward"):
-            use_fp16 = scenario == "shard_bf16_fp16_forward"
-            with torch.no_grad(), (_cpu_cuda_fp32_regions() if use_fp16 else nullcontext()), \
-                    torch.autocast(device_type="cpu", dtype=torch.float16, enabled=use_fp16):
+        if scenario in ("forward_fp32", "shard_bf16_forward", "shard_bf16_fp16_forward",
+                        "a100_bf16_forward"):
+            low_precision = scenario in ("shard_bf16_fp16_forward", "a100_bf16_forward")
+            compute_dtype = torch.bfloat16 if scenario == "a100_bf16_forward" else torch.float16
+            with torch.no_grad(), (_cpu_cuda_fp32_regions() if low_precision else nullcontext()), \
+                    torch.autocast(device_type="cpu", dtype=compute_dtype, enabled=low_precision):
                 out = run_model(model, make_forward_inputs())[0]
             torch.save(out, os.path.join(out_dir, f"{scenario}_out_rank{rank}.pt"))
         res["ok"] = True
