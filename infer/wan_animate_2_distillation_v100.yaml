@@ -90,6 +90,9 @@ test_cfg:
   # Every knob is 'auto': when the DiT runs bf16 (sm>=80, or --dtype bf16) it resolves to the
   # upstream value, so this file then behaves exactly like the upstream YAML.
   dit_dtype: auto             # auto|fp16|fp32|bf16 (CLI --dtype, env WAN_DTYPE). sm<80 auto = fp16
+  dit_shard_dtype: auto       # auto=fp32 (original 32GB); bf16=opt-in checkpoint-exact storage
+  low_vram: false             # opt-in: keep only overlap decoded frames on CPU between chunks
+  log_gpu_memory: false       # opt-in: log actual CUDA phase peaks per GPU
   attn_backend: auto          # auto|sdpa|flash (CLI --attn-backend, env WAN_ATTN_BACKEND). sm<80 auto = sdpa
   t5_dtype: auto              # fp16 DiT: fp32 compute (weights stay bf16, sharded); fp16 is refused
   vae_dtype: auto             # fp16 DiT: fp32

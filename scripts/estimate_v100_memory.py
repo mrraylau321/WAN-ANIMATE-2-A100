@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-"""Per-phase, per-GPU memory estimate for the V100 recipe (GiB vs 32 GiB) - no GPU needed.
+"""Per-phase, per-GPU estimates for V100 32GB and experimental 8x16GB recipes.
+
+No GPU is needed, but the reported peaks are not CUDA measurements and are NOT an OOM guarantee.
 
 How: persistent buffers are counted analytically from the real parameter counts (release
 checkpoint header + model definitions on the meta device). Transient peaks are TRACED: the real
@@ -9,7 +11,9 @@ and every allocation is followed until it is freed. Kernel workspaces of fused S
 cuDNN, the CUDA context, NCCL buffers and allocator fragmentation are NOT traced (see 'overhead').
 It is an ESTIMATE - measure on the server (nvidia-smi / torch.cuda.max_memory_allocated).
 
-  python scripts/estimate_v100_memory.py [--res 480p 540p 720p] [--frames 65] [--clip-len 81]
+  python scripts/estimate_v100_memory.py --profile 32gb [--res 480p 540p 720p]
+  python scripts/estimate_v100_memory.py --profile 16gb --res 256x448 --clip-len 17
+  python scripts/estimate_v100_memory.py --profile 16gb --res 288x512 --clip-len 25
 """
 import argparse
 import json
@@ -32,8 +36,10 @@ from torch.utils._pytree import tree_flatten  # noqa: E402
 from torch.utils.weak import WeakIdKeyDictionary  # noqa: E402
 
 GiB = 2 ** 30
-RES = {"480p": (480, 832), "540p": (544, 960), "720p": (720, 1280)}
-CAPACITY_GIB = 32510 / 1024  # V100-SXM2/PCIe 32GB as reported by nvidia-smi (32510 MiB)
+RES = {"256x448": (256, 448), "288x512": (288, 512),
+       "480p": (480, 832), "540p": (544, 960), "720p": (720, 1280)}
+CAPACITY_GIB = 32510 / 1024  # V100-SXM2/PCIe 32GB as reported by nvidia-smi
+CAPACITY_16G_GIB = 15.75  # conservative; override with actual nvidia-smi memory.total / 1024
 
 
 class LiveMem(TorchDispatchMode):
@@ -93,7 +99,9 @@ def param_counts():
     return dict(dit=dit, block=block, dit_root=dit - 40 * block, t5=n(t5),
                 t5_embedding=t5.token_embedding.weight.numel(),
                 t5_block=n(t5.blocks[0]), clip_vis=n(clip.visual), clip_txt=n(clip.textual), vae=n(vae),
-                ffn_weight=13824 * 5120)
+                ffn_weight=13824 * 5120,
+                root_fp32_islands=sum(math.prod(s) for k, (_, s) in hdr.items()
+                                      if k.startswith(("time_embedding.", "time_projection.", "head."))))
 
 
 def geometry(w, h, frames, clip_len, gpus):
@@ -223,17 +231,27 @@ def trace_block(g, mode, log_scale=-1.3):
 
 
 # ----------------------------------------------------------------------------- phases
-def estimate(name, w, h, frames, clip_len, gpus, P):
+def estimate(name, w, h, frames, clip_len, gpus, P, dit_shard_dtype="fp32", fp32_islands=0,
+             root_fp32_islands=False):
+    if dit_shard_dtype not in ("fp32", "bf16"):
+        raise ValueError("dit_shard_dtype must be fp32 or bf16")
+    if not 0 <= fp32_islands <= 40:
+        raise ValueError("fp32_islands must be between 0 and 40")
     g = geometry(w, h, frames, clip_len, gpus)
     vae = trace_vae(g, w, h)
     blocks = {m: trace_block(g, m) for m in ("fused", "math", "fp32")}
+    root_islands = P["root_fp32_islands"] if root_fp32_islands else 0
     persistent = {
-        "DiT fp32 shards (FSDP2 storage, as upstream)": P["dit"] * 4 / gpus,
-        "DiT root params kept unsharded by FSDP2 after the first forward (fp16)": P["dit_root"] * 2,
+        f"DiT {dit_shard_dtype} shards (FSDP2 storage)": P["dit"] * (2 if dit_shard_dtype == "bf16" else 4) / gpus,
+        "DiT root params unsharded after forward (fp16; excluding FP32 islands)": (P["dit_root"] - root_islands) * 2,
         "T5 bf16 shards (FSDP1)": P["t5"] * 2 / gpus,
         "CLIP visual fp16 shards (FSDP1)": P["clip_vis"] * 2 / gpus,
         "VAE fp32 weights": P["vae"] * 4,
     }
+    if root_islands and dit_shard_dtype == "bf16":
+        persistent["FP32 timestep/head island shard delta (from BF16)"] = root_islands * 2 / gpus
+    if fp32_islands and dit_shard_dtype == "bf16":
+        persistent["FP32 shard delta for allow-listed blocks"] = fp32_islands * P["block"] * 2 / gpus
     pers = sum(persistent.values())
     kv = 2 * 40 * g["seq_ref"] * g["heads"] * 128 * 2
     gathered = 2 * P["block"] * 2  # current + prefetched block, fp16
@@ -267,9 +285,13 @@ def time_per_forward(g, gpus, P, attn_tflops, gemm_tflops, link_gbps):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--res", nargs="+", default=list(RES), choices=list(RES))
-    ap.add_argument("--frames", type=int, default=65, help="frames after fps resampling + padding (one clip)")
-    ap.add_argument("--clip-len", type=int, default=81)
+    ap.add_argument("--profile", choices=["32gb", "16gb"], default="32gb")
+    ap.add_argument("--res", nargs="+", default=None, choices=list(RES))
+    ap.add_argument("--frames", type=int, default=65, help="frames after fps resampling + padding")
+    ap.add_argument("--clip-len", type=int, default=None)
+    ap.add_argument("--capacity-gib", type=float, default=None, help="actual usable per-card GiB")
+    ap.add_argument("--dit-shard-dtype", choices=["fp32", "bf16"], default=None)
+    ap.add_argument("--fp32-islands", type=int, default=0, help="number of DiT blocks retaining fp32 weights")
     ap.add_argument("--gpus", type=int, default=8)
     ap.add_argument("--overhead-gib", type=float, default=1.5,
                     help="untraced: CUDA context (~0.4), NCCL buffers, kernel workspaces, fragmentation")
@@ -278,15 +300,29 @@ def main():
     ap.add_argument("--link-gbps", type=float, default=100.0, help="per-GPU collective GB/s (NVLink ~100, PCIe ~10)")
     ap.add_argument("--json")
     a = ap.parse_args()
+    low_vram = a.profile == "16gb"
+    a.res = a.res or (["256x448", "288x512", "480p"] if low_vram else ["480p", "540p", "720p"])
+    a.clip_len = a.clip_len or (17 if low_vram else 81)
+    a.capacity_gib = a.capacity_gib or (CAPACITY_16G_GIB if low_vram else CAPACITY_GIB)
+    a.dit_shard_dtype = a.dit_shard_dtype or ("bf16" if low_vram else "fp32")
+    if a.gpus < 1 or 40 % a.gpus:
+        ap.error("GPU count must divide the model's 40 attention heads")
+    if a.clip_len < 5 or (a.clip_len - 1) % 4:
+        ap.error("--clip-len must be 4n+1 (e.g. 17, 25 or 81)")
+    if a.frames < 1 or a.capacity_gib <= 0 or not 0 <= a.fp32_islands <= 40:
+        ap.error("--frames/--capacity-gib/--fp32-islands values are invalid")
     P = param_counts()
     print("params: " + ", ".join(f"{k}={v / 1e9:.3f}B" for k, v in P.items()))
-    print(f"capacity: {CAPACITY_GIB:.2f} GiB per V100 32GB (nvidia-smi total); all numbers GiB per GPU, "
-          f"+{a.overhead_gib} GiB untraced overhead added to the totals; OK < 80% of capacity, "
-          f"TIGHT < 100%, else OVER")
+    print(f"profile={a.profile}, DiT shard={a.dit_shard_dtype}, {a.gpus} GPUs, capacity={a.capacity_gib:.2f} "
+          f"GiB/card (assumed; use actual nvidia-smi total), +{a.overhead_gib} GiB untraced overhead; "
+          "OK < 80% of capacity, TIGHT < 100%, else OVER")
+    print("WARNING: offline phase estimate is NOT a CUDA/NCCL memory measurement or OOM-free guarantee")
     report = []
     for r in a.res:
         w, h = RES[r]
-        e = estimate(r, w, h, a.frames, a.clip_len, a.gpus, P)
+        e = estimate(r, w, h, a.frames, a.clip_len, a.gpus, P,
+                     dit_shard_dtype=a.dit_shard_dtype, fp32_islands=a.fp32_islands,
+                     root_fp32_islands=low_vram)
         report.append(e)
         g = e["g"]
         print(f"\n== {r} ({w}x{h}), {g['clip_frames']}-frame clip: seq/rank {g['seq'] // a.gpus}, "
@@ -308,7 +344,7 @@ def main():
         print("  phase totals (+overhead):")
         for k, v in e["phases"].items():
             t = v / GiB + a.overhead_gib
-            flag = "OK" if t < 0.8 * CAPACITY_GIB else ("TIGHT" if t < CAPACITY_GIB else "OVER")
+            flag = "OK" if t < 0.8 * a.capacity_gib else ("TIGHT" if t < a.capacity_gib else "OVER")
             print(f"    {t:6.2f} GiB  {flag:5s}  {k}")
     if a.json:
         with open(a.json, "w") as f:

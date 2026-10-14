@@ -1,4 +1,4 @@
-# Wan-Animate-2 on 8× NVIDIA V100 (sm70, 32 GB)
+# Wan-Animate-2 on NVIDIA V100 (sm70): 8×32 GB / experimental 8×16 GB
 
 **Unofficial port.** Wan-Animate-2 (model, paper and original code) is by the Wan-Animate-2 authors;
 see the [official repository](https://github.com/Wan-Video/Wan-Animate-2) and [arXiv:2608.06009](https://arxiv.org/abs/2608.06009).
@@ -17,7 +17,7 @@ dispatch checks.
 Engineering details, the blocker inventory, the review responses, test results and risks are in
 [NOTES_V100.md](NOTES_V100.md).
 
-> **Status: CPU-verified only.** 98 CPU tests cover the following, compared against the unmodified
+> **Status: CPU-verified only.** 107 CPU tests (including 16 GB shard/FP16-forward and launcher checks) cover the following, compared against the unmodified
 > upstream code and the real checkpoint headers:
 > * the attention re-implementation;
 > * the loader and launcher paths;
@@ -147,7 +147,90 @@ cd infer && PYTHONPATH=.. python wan_animate_2_demo.py --config ./wan_animate_2_
   --cfg-override model_path=../ckpts/wan_animate_2/wan_animate_2_bf16_distillation.safetensors
 ```
 
-## Expected limits (estimates, not measurements; see NOTES §7)
+## Experimental **8× V100 16 GB** launch presets
+
+The original **32 GB launchers, their default FP32 DiT shard storage, and their default
+480P/540P/720P behavior remain unchanged**. The 16 GB path is opt-in and still
+requires **eight separate V100 16 GB GPUs** using the model's FSDP2 and
+context-parallel implementation. It is **not** a 1×16 GB or 2×16 GB model port.
+
+| `PRESET` | Width × height | Chunk frames | Intended use |
+|---|---|---:|---|
+| `minimal` (default) | 256×448 | 17 | first low-memory smoke test |
+| `balanced` | 256×448 | 25 | longer context at same resolution |
+| `detail` | 288×512 | 25 | more spatial detail; more memory |
+| `experimental480` | 480×832 | 17 | **high OOM risk**, explicit opt-in only |
+
+The above names indicate configurations, **not certified OOM-free tiers**. All are
+unverified on actual 16 GB cards; even the minimal preset might OOM. The default
+8-way allocation estimates **3.82 GiB DiT BF16 shards + 0.04 GiB FP32
+island shard overhead + 0.10 GiB remaining DiT root + 1.32 GiB T5 shard +
+0.15 GiB CLIP shard + 0.47 GiB replicated VAE per GPU**, or about **5.90 GiB
+persistent weights**. The FP32 islands are timestep embedding, timestep
+projection and output head (about 185M parameters, sharded 8-way). Dynamic peaks also include the approximately
+4.40 GiB T5 FP32 embedding gather, approximately 1.50 GiB DiT prefetch, and
+reference K/V and VAE activations (phase-dependent, not all simultaneous).
+The offline estimator gives **11.85 / 11.87 / 11.89 GiB** peak per GPU for
+minimal / balanced / detail, respectively, **including an assumed 1.5 GiB
+untraced overhead**; actual peaks may be higher and depend on the V100 server.
+**Host memory is also required**: the current 8-worker loader may temporarily use
+roughly 180–210 GiB of system RAM while loading T5, even on 16 GB GPUs.
+The 480P option is gated behind `ALLOW_UNVERIFIED_HIGH_RES=1`; do not interpret a
+successful 32 GB run as evidence it fits 16 GB. `MODE=distill` (10 steps, no CFG)
+is the launch default, or use `MODE=base` (40 steps + CFG).
+Resolution and chunk length may affect **output quality and chunk-seam consistency**;
+the shortest clip is not guaranteed to give equivalent motion.
+
+```bash
+python scripts/probe_v100.py
+python scripts/check_ckpt_fp16_range.py \
+  ckpts/wan_animate_2/wan_animate_2_bf16_distillation.safetensors
+python scripts/estimate_v100_memory.py --profile 16gb --res 256x448 --clip-len 17
+python scripts/estimate_v100_memory.py --profile 16gb --res 256x448 --clip-len 25
+python scripts/estimate_v100_memory.py --profile 16gb --res 288x512 --clip-len 25
+# These estimates miss CUDA contexts, NCCL workspaces, caching/fragmentation;
+# supply the actual device capacity with --capacity-gib.
+
+DRY_RUN=1 PRESET=minimal bash scripts/run_v100_16gb.sh
+PRESET=minimal  bash scripts/run_v100_16gb.sh
+PRESET=balanced bash scripts/run_v100_16gb.sh
+PRESET=detail   bash scripts/run_v100_16gb.sh
+MODE=base PRESET=minimal bash scripts/run_v100_16gb.sh
+
+# DANGEROUS EXPERIMENT, not a supported 480P fit claim:
+PRESET=experimental480 ALLOW_UNVERIFIED_HIGH_RES=1 bash scripts/run_v100_16gb.sh
+```
+
+The released checkpoint is **BF16**, not FP16. On the 16 GB path,
+`test_cfg.dit_shard_dtype=bf16` retains original checkpoint numeric values in
+the large-block FSDP2 shards (roughly **3.8 GiB/GPU** less than the 32 GB
+recipe). The timestep embedding/projection and output head require separate
+FP32 FSDP2 islands to avoid mixed-dtype failures; the launcher applies
+`test_cfg.fp32_modules=[time_embedding,time_projection,head]`. FSDP2 **computes** with guarded FP16 on V100,
+not emulated BF16; the residual between blocks, T5 and VAE are FP32. As
+another memory reduction, only the decoded overlap frame is carried to the
+next chunk on CPU (`low_vram=true`). The VAE is cast to FP32 on CPU **before**
+GPU transfer to avoid holding duplicate BF16/FP32 VAE weights on the card.
+`log_gpu_memory=true` logs actual CUDA allocated/reserved peaks and **local
+weight allocation by dtype** for DiT, T5, CLIP, and VAE on **every rank**.
+The 16 GB launcher defaults to `overflow_action=abort` rather than risking an
+unplanned FP32 block fallback that might OOM; an FP32 island can also increase
+persistent shard memory. The launcher refuses FP16 **checkpoint storage**.
+
+**Important: running in FP16 is not numerical/visual correctness.** The existing
+inf/NaN guards detect some unsafe activations, not finite-valued degradation.
+On real V100 GPUs, record all eight peak-reserved values and confirm no OOM,
+then compare identical inputs, prompts, seeds, resolution and `CLIP_LEN`
+against a high-precision FP32-compute reference when feasible on 32 GB
+cards. Review both the whole video and **chunk boundaries** for brightness /
+color shifts, flicker, lost identity and motion discontinuities; check
+per-frame RGB/exposure and seam transitions. Also validate both Base and
+Distillation. Until those runs pass, this profile must stay labelled
+**experimental / GPU-unverified**.
+
+---
+
+## Expected limits — original 32 GB recipe (estimates, not measurements; see NOTES §7)
 
 The figures below are for **one 81-frame clip** of a 64-frame driving video (65 frames after
 resampling and padding), on 8× V100 32 GB. Memory is GiB per GPU, including 1.5 GiB of untraced

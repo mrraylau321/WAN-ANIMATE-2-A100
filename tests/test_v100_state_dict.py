@@ -101,6 +101,81 @@ def test_pipeline_loader_strict_roundtrip_fp16(tmp_path):
         assert torch.equal(full[k], sd[k].float()), k
 
 
+@pytest.mark.parametrize("scenario,expected_dtype", [
+    ("shard_bf16", "torch.bfloat16"),
+    ("shard_bf16_island", "torch.float32"),
+])
+def test_16gb_bf16_storage_strict_roundtrip_and_fp32_island(tmp_path, scenario, expected_dtype):
+    """Checkpoint-exact BF16 shards; a selected FP32 island alone retains FP32."""
+    ckpt = str(tmp_path / "tiny_bf16.safetensors")
+    sd = _save_bf16_ckpt(ckpt)
+    res = _run(tmp_path, scenario, ckpt)
+    for r in res:
+        assert r["ok"], r.get("tb")
+        assert r["storage_dtype"] == expected_dtype
+        assert r["other_storage_dtype"] == "torch.bfloat16"
+        assert r["local_allocation"].get("bfloat16", 0) > 0
+        if scenario == "shard_bf16_island":
+            assert r["local_allocation"].get("float32", 0) > 0
+            assert "blocks.1" in r["fp32_units"]
+        else:
+            assert r["local_allocation"].get("float32", 0) == 0
+    full = torch.load(tmp_path / f"{scenario}_sd.pt")
+    assert set(full) == set(sd)
+    for key, released in sd.items():
+        is_island = scenario == "shard_bf16_island" and key.startswith("blocks.1.")
+        assert full[key].dtype == (torch.float32 if is_island else torch.bfloat16), key
+        assert torch.equal(full[key], released.float() if is_island else released), key
+
+
+def test_16gb_bf16_shards_fp32_forward_matches_reference(tmp_path):
+    """FSDP2 loads checkpoint BF16 shards and computes a tiny FP32 reference exactly."""
+    ckpt = str(tmp_path / "tiny_bf16.safetensors")
+    sd = _save_bf16_ckpt(ckpt)
+    res = _run(tmp_path, "shard_bf16_forward", ckpt)
+    assert all(r["ok"] for r in res), [r.get("tb") for r in res]
+    ref_model = WanAnimate2Transformer(**TINY).eval()
+    ref_model.load_state_dict({k: v.float() for k, v in sd.items()}, strict=True)
+    A.set_attention_backend("sdpa")
+    A.set_compute_dtype(torch.float32)
+    try:
+        with torch.no_grad():
+            ref = run_model(ref_model, make_forward_inputs())[0]
+    finally:
+        A.set_attention_backend("auto")
+        A.set_compute_dtype(torch.bfloat16)
+    for rank in range(2):
+        out = torch.load(tmp_path / f"shard_bf16_forward_out_rank{rank}.pt")
+        torch.testing.assert_close(out, ref, atol=1e-5, rtol=1e-5)
+
+
+def test_16gb_bf16_shards_fp16_compute_tiny_forward(tmp_path):
+    """End-to-end tiny CPU stand-in uses BF16 FSDP shards and FP16 DiT compute.
+
+    This cannot certify numeric quality or actual V100 CUDA kernels.
+    """
+    ckpt = str(tmp_path / "tiny_bf16.safetensors")
+    _save_bf16_ckpt(ckpt)
+    res = _run(tmp_path, "shard_bf16_fp16_forward", ckpt)
+    assert all(r["ok"] for r in res), [r.get("tb") for r in res]
+    for rank in range(2):
+        out = torch.load(tmp_path / f"shard_bf16_fp16_forward_out_rank{rank}.pt")
+        assert torch.isfinite(out).all()
+
+
+def test_16gb_rejects_fp16_checkpoint_storage():
+    """FP16 persistent storage would silently truncate BF16 release values."""
+    from wanxiang.utils.precision import parse_dtype
+    assert parse_dtype("fp16") == torch.float16
+    # The pipeline checks this *before* making any FSDP or CUDA allocations.
+    stub_heavy_video_deps()
+    from pipelines.wan_animate_2_pipeline import build_dit
+    from wanxiang.utils.precision import resolve_precision
+    cfg = OmegaConf.create({"test_cfg": {"dit_shard_dtype": "fp16"}})
+    with pytest.raises(ValueError, match="dit_shard_dtype"):
+        build_dit(cfg, "cpu", resolve_precision(cfg.test_cfg, torch.device("cpu")), gpu=0)
+
+
 def test_pipeline_loader_sharded_forward_matches_unsharded(tmp_path):
     ckpt = str(tmp_path / "tiny_bf16.safetensors")
     sd = _save_bf16_ckpt(ckpt)

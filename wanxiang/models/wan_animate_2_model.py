@@ -151,6 +151,16 @@ class LayerNorm(nn.LayerNorm):
         super().__init__(dim, elementwise_affine=elementwise_affine, eps=eps)
 
     def forward(self, x):
+        # V100 FP16 compute: the residual stays fp32 while this affine norm's
+        # FSDP-gathered gamma/beta can be fp16. F.layer_norm requires its fp32
+        # input and affine parameters to agree in dtype (CPU and CUDA kernels).
+        # Cast only the tiny affine parameters for the norm, without changing
+        # checkpoint keys or the module's persistent FP16/BF16 weight storage.
+        if self.weight is not None and self.weight.dtype == torch.float16:
+            return torch.nn.functional.layer_norm(
+                x.float(), self.normalized_shape, self.weight.float(),
+                self.bias.float() if self.bias is not None else None, self.eps,
+            ).type_as(x)
         return super().forward(x.float()).type_as(x)
 
 

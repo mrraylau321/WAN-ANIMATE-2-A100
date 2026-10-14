@@ -38,10 +38,12 @@ else
   STEPS=${STEPS:-40}; GUIDE=${GUIDE:-3.0}            # demo defaults: 40 steps, CFG 3.0
 fi
 case "${RES:-480p}" in
+  256x448) W=256; H=448 ;;  # experimental 16GB preset only
+  288x512) W=288; H=512 ;;  # experimental 16GB preset only
   480p) W=480; H=832 ;;
   540p) W=544; H=960 ;;
   720p) W=720; H=1280 ;;
-  *) echo "RES must be 480p|540p|720p" >&2; exit 2 ;;
+  *) echo "RES must be 256x448|288x512|480p|540p|720p" >&2; exit 2 ;;
 esac
 
 WAN=$CKPT_DIR/videomodel/Wan-AI

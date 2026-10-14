@@ -43,7 +43,7 @@ from wanxiang.utils.fm_solvers import FlowDPMSolverMultistepScheduler
 from wanxiang.eval_i2v import T5Encoder, CLIP, get_i2v_mask
 from wanxiang.distributed.fsdp import shard_model, shard_transformer
 from wanxiang.models import attention as wan_attention
-from wanxiang.utils.precision import resolve_precision
+from wanxiang.utils.precision import resolve_precision, parse_dtype
 from wanxiang.utils.fp16_guard import check_fp16_castable, force_fp32, OverflowGuard
 
 from pipelines.utils.multiclip_utils import zigzag_padding, get_padding_len
@@ -173,6 +173,41 @@ def t5_autocast(prec):
     return nullcontext() if prec.upstream else torch.autocast(device_type="cuda", dtype=prec.t5)
 
 
+def gpu_memory_checkpoint(label, device, enabled=False):
+    """Log measured CUDA peaks per phase; the offline estimator is not a GPU measurement."""
+    if not enabled:
+        return
+    torch.cuda.synchronize(device)
+    gib = 1024 ** 3
+    logger.info(f"[VRAM {device}] {label}: "
+                f"allocated={torch.cuda.memory_allocated(device) / gib:.2f} GiB "
+                f"peak_allocated={torch.cuda.max_memory_allocated(device) / gib:.2f} GiB "
+                f"reserved={torch.cuda.memory_reserved(device) / gib:.2f} GiB "
+                f"peak_reserved={torch.cuda.max_memory_reserved(device) / gib:.2f} GiB")
+    torch.cuda.reset_peak_memory_stats(device)
+
+
+def local_weight_allocation(module, device):
+    """Count *local* parameter-shard bytes, never all-gather distributed tensors."""
+    target = torch.device(device)
+    by_dtype = {}
+    for param in module.parameters():
+        shard = param.to_local() if hasattr(param, "to_local") else param
+        if shard.device != target:
+            continue
+        label = str(shard.dtype).replace("torch.", "")
+        by_dtype[label] = by_dtype.get(label, 0) + shard.numel() * shard.element_size()
+    return by_dtype
+
+
+def log_weight_allocation(label, module, device, enabled=False):
+    if enabled:
+        sizes = local_weight_allocation(module, device)
+        gib = 1024 ** 3
+        details = ", ".join(f"{dtype}={n / gib:.3f}GiB" for dtype, n in sorted(sizes.items()))
+        logger.info(f"[WEIGHTS {device}] {label}: local={sum(sizes.values()) / gib:.3f} GiB ({details})")
+
+
 T5_HINT = "T5 runs in fp32 on V100 (test_cfg.t5_dtype); a non-finite text embedding means bad inputs/weights."
 CLIP_HINT = "set test_cfg.clip_dtype=fp32 (or --cfg-override test_cfg.clip_dtype=fp32)."
 VAE_HINT = "the VAE runs in test_cfg.vae_dtype (fp32 on V100); check the input video / weights."
@@ -195,6 +230,8 @@ def inference_core(item, gpu, cfg, clip, vae, model, t5, use_t5, context, contex
     height = item.height
     width = item.width
     CLIP_LEN = item.clip_len
+    low_vram = bool(cfg.test_cfg.get("low_vram", False))
+    log_gpu_memory = bool(cfg.test_cfg.get("log_gpu_memory", False))
     origin_len = CLIP_LEN
     origin_area = [width, height]
 
@@ -225,6 +262,7 @@ def inference_core(item, gpu, cfg, clip, vae, model, t5, use_t5, context, contex
     start = 0
     end = CLIP_LEN
     all_out_frames = []
+    previous_tail_cpu = None  # Opt-in: retain only overlap frames between chunks on CPU
 
     logger.info(f"Processing reference image: {refer_img_path}")
     first_img = cv2.imread(refer_img_path)[..., ::-1]
@@ -300,9 +338,9 @@ def inference_core(item, gpu, cfg, clip, vae, model, t5, use_t5, context, contex
         )
 
         if start > 0:
+            tail = previous_tail_cpu if low_vram else out_frames[0, :, -first_num:]
             batch["refer_t_pixel_values"] = rearrange(
-                out_frames[0, :, -first_num:].clone().detach(),
-                "c t h w -> t c h w",
+                tail.clone().detach(), "c t h w -> t c h w",
             )
 
         batch['pixel_values'] = rearrange(batch["refer_t_pixel_values"],
@@ -489,6 +527,7 @@ def inference_core(item, gpu, cfg, clip, vae, model, t5, use_t5, context, contex
             if max_seq_len % cfg.test_cfg.sp_size != 0:
                 raise ValueError(f"max_seq_len {max_seq_len} is not divisible by sp_size {cfg.test_cfg.sp_size}")
 
+            gpu_memory_checkpoint(f"chunk {idex} conditioning", device, log_gpu_memory)
             # cache ref kv
             k_cache = {}
             v_cache = {}
@@ -497,6 +536,7 @@ def inference_core(item, gpu, cfg, clip, vae, model, t5, use_t5, context, contex
             timestep = torch.stack(timestep)
             guard.run(lambda: model(condition_latents, grid_sizes=grid_sizes, k_cache=k_cache, v_cache=v_cache, t=timestep,  method='forward_ref', **arg_ref_c),
                       step="ref", branch="ref")
+            gpu_memory_checkpoint(f"chunk {idex} reference", device, log_gpu_memory)
             for i, t in enumerate(tqdm(timesteps)):
                 latent_model_input = latents
                 timestep = [t]
@@ -529,6 +569,7 @@ def inference_core(item, gpu, cfg, clip, vae, model, t5, use_t5, context, contex
                 )[0]
                 latents[0] = temp_x0.squeeze(0)
 
+            gpu_memory_checkpoint(f"chunk {idex} denoising", device, log_gpu_memory)
             x0 = latents
             # 将latents转换为float32进行解码
             x0 = [x.to(dtype=torch.float32) for x in x0]
@@ -549,6 +590,10 @@ def inference_core(item, gpu, cfg, clip, vae, model, t5, use_t5, context, contex
                 .numpy()
                 .astype(np.uint8)
             )
+            gpu_memory_checkpoint(f"chunk {idex} decoded", device, log_gpu_memory)
+            if low_vram:
+                previous_tail_cpu = out_frames[0, :, -first_num:].detach().cpu().clone()
+                del out_frames
 
             if start != 0:
                 out = out[first_num:]
@@ -600,9 +645,20 @@ def build_dit(cfg, device, prec, gpu):
     (test_cfg.fp32_modules) and a load-time fp16 castability check. Returns (model, fp32_modules)."""
     device_type = torch.device(device).type
     fp32_modules = [str(m) for m in (cfg.test_cfg.get("fp32_modules", None) or [])]
+    # FSDP2 stores its original parameter dtype in persistent shards. Keep the 32GB
+    # default (fp32) unchanged; opt in to checkpoint-exact bf16 storage on 16GB cards.
+    # Compute remains prec.dit (guarded fp16 on V100), not bf16 emulation.
+    shard_dtype = parse_dtype(cfg.test_cfg.get("dit_shard_dtype", "auto")) or torch.float32
+    if shard_dtype not in (torch.float32, torch.bfloat16):
+        raise ValueError("test_cfg.dit_shard_dtype must be auto, fp32 or bf16 (never fp16)")
     try:
         with torch.device('meta'):
             model = build_object_from_dict(cfg.model.transformer)
+            if shard_dtype == torch.bfloat16:
+                model = model.to(dtype=torch.bfloat16)
+                # Explicit fp32 fallback blocks must retain fp32 parameters.
+                for name in fp32_modules:
+                    model.get_submodule(name).to(dtype=torch.float32)
             torch.set_default_dtype(prec.dit)
     except Exception as e:
         logger.error(f"[GPU {gpu}] Failed to initialize transformer: {str(e)}")
@@ -773,6 +829,10 @@ def worker(gpu, cfg, in_q_list, out_q, initialized_events, status_q=None):
             # (FSDP1 keeps the root unit's unsharded params: 4.2 GB in fp32)
             t5.model = shard_fn(t5.model, sync_module_states=False, param_dtype=prec.t5,
                                 extra_wrap=() if prec.upstream else (t5.model.token_embedding, t5.model.norm))
+            log_weight_allocation("T5 FSDP1", t5.model, device,
+                                  bool(cfg.test_cfg.get("log_gpu_memory", False)))
+            gpu_memory_checkpoint("T5 initialization", device,
+                                  bool(cfg.test_cfg.get("log_gpu_memory", False)))
 
         try:
             with torch.device(init_device):
@@ -802,6 +862,10 @@ def worker(gpu, cfg, in_q_list, out_q, initialized_events, status_q=None):
                 clip.model.textual = clip.model.textual.to(device)
             
             logger.info(f" --> CLIP FSDP: {torch.cuda.memory_allocated()/1e9:.2f} GB, {torch.cuda.memory_reserved()/1e9:.2f} GB")
+            log_weight_allocation("CLIP visual FSDP1", clip.model.visual, device,
+                                  bool(cfg.test_cfg.get("log_gpu_memory", False)))
+            gpu_memory_checkpoint("CLIP initialization", device,
+                                  bool(cfg.test_cfg.get("log_gpu_memory", False)))
         except Exception as e:
             logger.error(f"[GPU {gpu}] Failed to initialize VAE: {str(e)}")
             logger.error(f"[GPU {gpu}] Error traceback: {traceback.format_exc()}")
@@ -814,12 +878,24 @@ def worker(gpu, cfg, in_q_list, out_q, initialized_events, status_q=None):
                     device=init_device,
                     dtype=torch.bfloat16
                 )
-            vae.model = vae.model.to(device)
-            vae.scale = [vae.scale[0].to(device), vae.scale[1].to(device)]
-            if not prec.upstream:  # cast AFTER loading; same keys, mean/std keep their bf16-rounded values
+            if cfg.test_cfg.get("low_vram", False) and not prec.upstream:
+                # 16GB path: finish the BF16 -> FP32 VAE cast on CPU BEFORE GPU
+                # transfer. Avoid temporarily holding both GPU copies on every rank.
+                # The source checkpoint values and parameter names stay unchanged.
                 vae.model = vae.model.to(dtype=prec.vae)
-                vae.scale = [x.to(dtype=prec.vae) for x in vae.scale]
+                vae.model = vae.model.to(device)
+                vae.scale = [x.to(device=device, dtype=prec.vae) for x in vae.scale]
+            else:
+                vae.model = vae.model.to(device)
+                vae.scale = [vae.scale[0].to(device), vae.scale[1].to(device)]
+                if not prec.upstream:  # original 32GB recipe unchanged
+                    vae.model = vae.model.to(dtype=prec.vae)
+                    vae.scale = [x.to(dtype=prec.vae) for x in vae.scale]
             logger.info(f" --> VAE: {torch.cuda.memory_allocated()/1e9:.2f} GB, {torch.cuda.memory_reserved()/1e9:.2f} GB")
+            log_weight_allocation("VAE replicated", vae.model, device,
+                                  bool(cfg.test_cfg.get("log_gpu_memory", False)))
+            gpu_memory_checkpoint("VAE initialization", device,
+                                  bool(cfg.test_cfg.get("log_gpu_memory", False)))
         except Exception as e:
             logger.error(f"[GPU {gpu}] Failed to initialize VAE: {str(e)}")
             logger.error(f"[GPU {gpu}] Error traceback: {traceback.format_exc()}")
@@ -827,6 +903,10 @@ def worker(gpu, cfg, in_q_list, out_q, initialized_events, status_q=None):
 
         # [model] transformer (V100 port: moved into build_dit, statements unchanged)
         model, fp32_modules = build_dit(cfg, device, prec, gpu)
+        log_weight_allocation("DiT FSDP2", model, device,
+                              bool(cfg.test_cfg.get("log_gpu_memory", False)))
+        gpu_memory_checkpoint("DiT initialization", device,
+                              bool(cfg.test_cfg.get("log_gpu_memory", False)))
         guard = OverflowGuard(
             model,
             mode=prec.guard,
@@ -837,7 +917,9 @@ def worker(gpu, cfg, in_q_list, out_q, initialized_events, status_q=None):
         )
 
         torch.cuda.empty_cache()
-        
+        gpu_memory_checkpoint("worker initialization", device,
+                              bool(cfg.test_cfg.get("log_gpu_memory", False)))
+
         # init done
         logger.info(f'[GPU {gpu}] Worker initialization completed')
         initialized = True

@@ -2,9 +2,27 @@
 import json
 import os
 import traceback
+from contextlib import contextmanager, nullcontext
 
 import torch
 import torch.distributed as dist
+
+
+@contextmanager
+def _cpu_cuda_fp32_regions():
+    """Emulate nested CUDA FP32 autocast-off blocks during CPU FP16 smoke tests."""
+    real = torch.amp.autocast
+
+    def shim(device_type, *args, **kwargs):
+        if device_type == "cuda" and kwargs.get("dtype") == torch.float32:
+            return real("cpu", enabled=False)
+        return real(device_type, *args, **kwargs)
+
+    torch.amp.autocast = shim
+    try:
+        yield
+    finally:
+        torch.amp.autocast = real
 
 
 def _init(rank, world, port):
@@ -13,14 +31,15 @@ def _init(rank, world, port):
     dist.init_process_group("gloo", rank=rank, world_size=world)
 
 
-def tiny_cfg(ckpt_path, world, fp32_modules=(), dit_dtype="fp16"):
+def tiny_cfg(ckpt_path, world, fp32_modules=(), dit_dtype="fp16", shard_dtype="auto"):
     from omegaconf import OmegaConf
     from conftest import TINY
     return OmegaConf.create({
         "model": {"transformer": dict(type="wanxiang.wanxiang_animate_2_arch.WanxiangAnimate2Transformer",
                                       **{k: list(v) if isinstance(v, tuple) else v for k, v in TINY.items()})},
         "test_cfg": {"sharding_size": world, "world_size": world, "sp_size": 1,
-                     "fp32_modules": list(fp32_modules), "dit_dtype": dit_dtype},
+                     "fp32_modules": list(fp32_modules), "dit_dtype": dit_dtype,
+                     "dit_shard_dtype": shard_dtype},
         "model_path": ckpt_path,
     })
 
@@ -36,9 +55,12 @@ def load_worker(rank, world, port, scenario, ckpt_path, out_dir):
         from pipelines import wan_animate_2_pipeline as P
         from wanxiang.models import attention as A
         from wanxiang.utils.precision import resolve_precision
-        fp32_modules = ["blocks.1"] if scenario == "overflow_allowlisted" else []
-        dit_dtype = "fp32" if scenario == "forward_fp32" else "fp16"
-        cfg = tiny_cfg(ckpt_path, world, fp32_modules, dit_dtype)
+        fp32_modules = ["blocks.1"] if scenario in ("overflow_allowlisted", "shard_bf16_island") else []
+        if scenario == "shard_bf16_fp16_forward":
+            fp32_modules = ["time_embedding", "time_projection", "head"]
+        dit_dtype = "fp32" if scenario in ("forward_fp32", "shard_bf16_forward") else "fp16"
+        shard_dtype = "bf16" if scenario.startswith("shard_bf16") else "auto"
+        cfg = tiny_cfg(ckpt_path, world, fp32_modules, dit_dtype, shard_dtype)
         prec = resolve_precision(cfg.test_cfg, torch.device("cpu"))
         A.set_attention_backend("sdpa")
         A.set_compute_dtype(prec.dit)
@@ -48,12 +70,16 @@ def load_worker(rank, world, port, scenario, ckpt_path, out_dir):
         res["param_type"] = type(p).__name__
         res["local_rows"] = int(p.to_local().shape[0])
         res["storage_dtype"] = str(p.dtype)
+        res["other_storage_dtype"] = str(dict(model.named_parameters())["blocks.0.block.ffn.0.weight"].dtype)
+        res["local_allocation"] = P.local_weight_allocation(model, "cpu")
         res["fp32_units"] = [n for n, m in model.named_modules() if getattr(m, "_wan_fp32", False)]
         full = get_model_state_dict(model, options=StateDictOptions(full_state_dict=True, cpu_offload=True))
         if rank == 0:
             torch.save({k: v.clone() for k, v in full.items()}, os.path.join(out_dir, f"{scenario}_sd.pt"))
-        if scenario == "forward_fp32":
-            with torch.no_grad():
+        if scenario in ("forward_fp32", "shard_bf16_forward", "shard_bf16_fp16_forward"):
+            use_fp16 = scenario == "shard_bf16_fp16_forward"
+            with torch.no_grad(), (_cpu_cuda_fp32_regions() if use_fp16 else nullcontext()), \
+                    torch.autocast(device_type="cpu", dtype=torch.float16, enabled=use_fp16):
                 out = run_model(model, make_forward_inputs())[0]
             torch.save(out, os.path.join(out_dir, f"{scenario}_out_rank{rank}.pt"))
         res["ok"] = True
