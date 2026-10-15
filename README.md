@@ -60,7 +60,7 @@ PRESET=full MODE=distill bash scripts/run_a100.sh
 PRESET=standard MODE=base bash scripts/run_a100.sh
 ```
 
-Supported environment variables: `MODE` = `distill|base`, `PRESET` = `smoke|standard|full`, `GPUS` = `0,1` by default (or any two distinct physical indices), `RES` = `480p|540p|720p` (also inherited small-size options), `CLIP_LEN` = `4n+1`, `REF_IMG`, `DRIVE`, `PROMPT`, `PROMPT_REF`, `CKPT_DIR`, `OUT_DIR`, `STEPS`, `GUIDE`, `FPS`, `SEED`, and `ATTN_BACKEND=auto|flash|sdpa`. The launcher deliberately disallows arbitrary `EXTRA_OVERRIDES` to avoid silently changing 2-way FSDP or BF16 storage. Its hardware preflight **rejects one GPU, V100, non-A100, and 40GB A100**.
+Supported environment variables: `MODE` = `distill|base`, `PRESET` = `smoke|standard|full`, `GPUS` = `0,1` by default (or any two distinct physical indices), `RES` = `480p|540p|720p` (also inherited small-size options), `CLIP_LEN` = `4n+1`, `REF_IMG`, `DRIVE`, `PROMPT`, `PROMPT_REF`, `CKPT_DIR`, `OUT_DIR`, `STEPS`, `GUIDE`, `FPS`, `SEED`, and `ATTN_BACKEND=auto|flash|sdpa`. The launcher deliberately disallows arbitrary `EXTRA_OVERRIDES` to avoid silently changing 2-way FSDP or BF16 storage. Its hardware preflight **rejects one GPU, V100, non-A100, and 40GB A100**. Before loading any model checkpoints it also calls `scripts/preflight_a100_config.py` to validate the actual YAML and construct a dummy `OverflowGuard`. Always quote YAML enum values such as `overflow_guard: "off"`; otherwise some YAML parsers turn `off` into Boolean `False`. Slow network-mounted checkpoints can make model initialization very long: the preflight avoids expensive late failures caused by configuration mistakes, but does not accelerate checkpoint I/O.
 
 ### Model presets
 

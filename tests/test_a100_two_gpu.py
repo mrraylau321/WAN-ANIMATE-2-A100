@@ -25,11 +25,61 @@ def test_native_a100_config_is_two_gpu_bf16(name):
     assert t.clip_dtype == "fp16" and t.clip_text_on_gpu is False
     assert t.low_vram and t.log_gpu_memory
     assert t.kv_cache_owned
+    # YAML 1.1-style unquoted "off" becomes bool False; the config must use
+    # a string, and its resolved mode must be accepted at worker startup.
+    assert t.overflow_guard == "off" and isinstance(t.overflow_guard, str)
+    from wanxiang.utils.precision import resolve_precision
+    from wanxiang.utils.fp16_guard import OverflowGuard
+    prec = resolve_precision(t, torch.device("cpu"))
+    assert prec.guard == "off"
+    guard = OverflowGuard(torch.nn.Linear(1, 1), mode=prec.guard,
+                          action=t.overflow_action)
+    guard.remove()
     assert list(t.fp32_modules) == ["time_embedding", "time_projection", "head"]
     assert cfg.model.transformer.num_heads % t.sp_size == 0
     assert cfg.model.transformer.log_scale == (
         -1.3 if "distillation" in name else 0.0
     )
+
+@pytest.mark.parametrize("dit", ["bf16", "fp16"])
+def test_bare_yaml_off_boolean_does_not_crash_after_model_load(dit):
+    """Regression for A100 crash at OverflowGuard() after hours of checkpoint I/O."""
+    from wanxiang.utils.precision import resolve_precision
+    from wanxiang.utils.fp16_guard import OverflowGuard
+    cfg = OmegaConf.create(f"dit_dtype: {dit}\noverflow_guard: off\n")
+    assert cfg.overflow_guard is False
+    resolved = resolve_precision(cfg, torch.device("cpu"))
+    assert resolved.guard == "off"
+    guard = OverflowGuard(torch.nn.Linear(1, 1), mode=resolved.guard, action="abort")
+    guard.remove()
+
+
+def test_overflow_guard_true_is_explicit_configuration_error():
+    from wanxiang.utils.precision import resolve_precision
+    with pytest.raises(ValueError, match="overflow_guard"):
+        resolve_precision(OmegaConf.create({"dit_dtype": "bf16",
+                                            "overflow_guard": True}),
+                          torch.device("cpu"))
+
+
+@pytest.mark.parametrize("name", [
+    "wan_animate_2_a100.yaml",
+    "wan_animate_2_distillation_a100.yaml",
+])
+def test_a100_preflight_checks_runtime_config_before_checkpoint_io(name):
+    from scripts.preflight_a100_config import validate_a100_config
+    prec = validate_a100_config(Path(REPO) / "infer" / name)
+    assert prec.guard == "off"
+
+
+def test_a100_preflight_rejects_invalid_guard_before_checkpoint_io(tmp_path):
+    from scripts.preflight_a100_config import validate_a100_config
+    cfg = OmegaConf.load(str(Path(REPO) / "infer" / "wan_animate_2_a100.yaml"))
+    cfg.test_cfg.overflow_guard = True
+    target = tmp_path / "invalid_guard.yaml"
+    OmegaConf.save(cfg, target)
+    with pytest.raises(ValueError, match="overflow_guard"):
+        validate_a100_config(target)
 
 
 def test_native_a100_two_rank_bf16_shards_forward(tmp_path):

@@ -69,6 +69,20 @@ def _auto(val):
     return val is None or str(val).strip().lower() in ("", "auto", "none")
 
 
+def _resolve_guard_mode(value, dit):
+    """Keep YAML 1.1-style bare 'off' (parsed as False) from breaking worker init."""
+    if value is False:
+        return "off"
+    if value is True:
+        raise ValueError('overflow_guard must be "off", "first_step", or "all", not Boolean true')
+    if _auto(value):
+        return "first_step" if dit == torch.float16 else "off"
+    value = str(value).strip().lower()
+    if value not in ("off", "first_step", "all"):
+        raise ValueError(f"invalid overflow_guard mode: {value!r}; use off|first_step|all")
+    return value
+
+
 T5_FP16_ERROR = (
     "T5 in fp16 is not supported (t5_dtype / param_dtype resolved to float16). umT5 activations are "
     "known to overflow fp16, and the encoder's fp16_clamp turns the resulting inf into finite "
@@ -90,6 +104,7 @@ def resolve_precision(test_cfg, device):
     req = parse_dtype(_get(test_cfg, "dit_dtype", "auto")) or parse_dtype(os.environ.get("WAN_DTYPE"))
     dit = req or (torch.bfloat16 if has_native_bf16(device) else torch.float16)
     guard = _get(test_cfg, "overflow_guard", "auto")
+    guard_mode = _resolve_guard_mode(guard, dit)
     text_gpu = _get(test_cfg, "clip_text_on_gpu", "auto")
     frac = float(_get(test_cfg, "fp16_underflow_frac", 1e-3))
     if dit == torch.bfloat16:
@@ -97,7 +112,7 @@ def resolve_precision(test_cfg, device):
         return Precision(dit=torch.bfloat16, dit_output=torch.bfloat16,
                          t5=_check_t5(parse_dtype(_get(test_cfg, "param_dtype", "bfloat16"))),
                          vae=torch.bfloat16, clip=torch.float16,
-                         guard="off" if _auto(guard) else str(guard),
+                         guard=guard_mode,
                          clip_text_on_gpu=True if _auto(text_gpu) else bool(text_gpu),
                          underflow_frac=frac)
     return Precision(
@@ -110,7 +125,7 @@ def resolve_precision(test_cfg, device):
         vae=parse_dtype(_get(test_cfg, "vae_dtype", "auto")) or torch.float32,
         clip=parse_dtype(_get(test_cfg, "clip_dtype", "auto"))
         or (torch.float32 if dit == torch.float32 else torch.float16),
-        guard=("first_step" if dit == torch.float16 else "off") if _auto(guard) else str(guard),
+        guard=guard_mode,
         clip_text_on_gpu=False if _auto(text_gpu) else bool(text_gpu),
         underflow_frac=frac,
     )

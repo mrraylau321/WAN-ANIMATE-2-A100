@@ -102,7 +102,7 @@ test_cfg:
   clip_text_on_gpu: false  # unused CLIP text tower stays on CPU
   fp32_modules: [time_embedding, time_projection, head]  # FP32-required small modules, 2-way FSDP2
   fp16_underflow_frac: 0.001
-  overflow_guard: off     # BF16 has wide exponent range; finite checks still apply to conditioning
+  overflow_guard: "off"   # quoted: YAML otherwise parses unquoted off as Boolean False
   overflow_action: abort
   overflow_warn_at: 16384
 

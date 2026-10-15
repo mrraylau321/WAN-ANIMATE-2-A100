@@ -51,7 +51,9 @@ if [[ "${DRY_RUN:-0}" == 1 ]]; then
 fi
 
 export CUDA_VISIBLE_DEVICES="$GPUS"
+export PYTHONPATH="$REPO${PYTHONPATH:+:$PYTHONPATH}"
 python "$REPO/scripts/probe_a100.py"
+python "$REPO/scripts/preflight_a100_config.py" "$REPO/infer/$CONFIG"
 DEMO="$REPO/examples/demo1"
 CKPT_DIR=${CKPT_DIR:-"$REPO/ckpts"}
 [[ -d "$CKPT_DIR" ]] || { echo "Missing CKPT_DIR: $CKPT_DIR" >&2; exit 1; }
@@ -73,7 +75,6 @@ done
 OUT_DIR=${OUT_DIR:-"$REPO/outputs"}
 mkdir -p "$OUT_DIR"
 OUT_DIR=$(cd "$OUT_DIR" && pwd)
-export PYTHONPATH="$REPO${PYTHONPATH:+:$PYTHONPATH}"
 LOG="$OUT_DIR/a100_${MODE}_${RES}_${CLIP_LEN}_$(date +%Y%m%d_%H%M%S).log"
 echo "Log: $LOG"
 cd "$REPO/infer"
