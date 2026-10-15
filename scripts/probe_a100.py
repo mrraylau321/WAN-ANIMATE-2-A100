@@ -23,7 +23,7 @@ def inspect_devices(torch_module, count=2, min_mib=78000):
         if capacity < min_mib:
             raise RuntimeError(
                 f"rank {rank}: {capacity:.0f} MiB is not an 80GB A100 profile "
-                f"(requires at least {min_mib} MiB; Ray reports 81920 MiB)"
+                f"(requires at least {min_mib} MiB; an A100 80GB reports 81920 MiB)"
             )
         info.append((rank, props.name, capacity, f"sm{major}{minor}"))
     if not cuda.is_bf16_supported(including_emulation=False):

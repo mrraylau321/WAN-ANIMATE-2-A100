@@ -80,4 +80,4 @@ A real-server validation should confirm complete output, absence of NaN/Inf and 
 
 ## Repository provenance
 
-This repo was independently cloned from the last verified V100-port commit `68e0560`, while leaving the source V100 repo unchanged. The inherited `*_v100.yaml`, launcher utilities, `NOTES_V100.md` and tests remain as technical references and regression coverage; **the supported entry point for this repo is exclusively `scripts/run_a100.sh` and the new `*_a100.yaml` files**. The upstream Apache-2.0 license remains in `LICENSE`.
+This repo was independently cloned from the V100 port at commit `68e0560` (reviewed V100 baseline: `1f71a97`; the later 16 GB V100 profile commits up to `68e0560` are experimental), while leaving the source V100 repo unchanged. The inherited `*_v100.yaml`, launcher utilities, `NOTES_V100.md` and tests remain as technical references and regression coverage; **the supported entry point for this repo is exclusively `scripts/run_a100.sh` and the new `*_a100.yaml` files**. The upstream Apache-2.0 license remains in `LICENSE`.

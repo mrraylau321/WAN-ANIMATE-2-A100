@@ -60,8 +60,14 @@ CKPT_DIR=${CKPT_DIR:-"$REPO/ckpts"}
 CKPT_DIR=$(cd "$CKPT_DIR" && pwd)
 REF_IMG=${REF_IMG:-"$DEMO/reference.png"}
 DRIVE=${DRIVE:-"$DEMO/template.mp4"}
+# Resolve inputs to absolute paths now: the launcher later runs from "$REPO/infer", where a
+# relative path would only fail after every model has been loaded.
+for f in "$REF_IMG" "$DRIVE"; do
+  [[ -f "$f" ]] || { echo "Missing input file: $f" >&2; exit 1; }
+done
+REF_IMG=$(realpath "$REF_IMG"); DRIVE=$(realpath "$DRIVE")
 if [[ -z "${PROMPT:-}" ]]; then
-  [[ "$REF_IMG" == "$DEMO/reference.png" ]] || { echo "PROMPT required for custom REF_IMG" >&2; exit 2; }
+  [[ "$REF_IMG" == "$(realpath "$DEMO/reference.png")" ]] || { echo "PROMPT required for custom REF_IMG" >&2; exit 2; }
   PROMPT=$(< "$DEMO/prompt.txt")
 fi
 PROMPT_REF=${PROMPT_REF:-人物动作的参考视频}

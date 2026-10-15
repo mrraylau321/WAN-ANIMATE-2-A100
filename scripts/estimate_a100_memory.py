@@ -35,7 +35,7 @@ def main():
     p.add_argument("--clip-len", type=int, default=65)
     p.add_argument("--frames", type=int, default=None, help="input frames in first model chunk (default: clip-len)")
     p.add_argument("--capacity-mib", type=int, default=81920,
-                   help="per-GPU physical memory, MiB (Ray's cards: 81920 MiB)")
+                   help="per-GPU physical memory, MiB (an A100 80GB reports 81920 MiB)")
     p.add_argument("--overhead-gib", type=float, default=3.0,
                    help="assumed untraced kernel/NCCL/allocator overhead, GiB")
     a = p.parse_args()
